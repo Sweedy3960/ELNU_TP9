@@ -15,7 +15,7 @@
 
 #include "stm32gestSpiLIS3DH.h"
 #include "gpio.h"
-//#include "spi.h" //nécessaire à l'utilisation des fonctions SPI
+#include "spi.h" //nécessaire à l'utilisation des fonctions SPI
 
 
 #define DUMMY 0x81
@@ -72,6 +72,20 @@
 //Valeurs d'initialisation des registres
 #define VALINIT_CTRL_REG1   0x47    // Signification ?
 #define VALINIT_CTRL_REG4   0x88    // Signification ?
+tramespi trame1;
+// write register
+void writeRegister8 (uint8_t address, uint8_t data)
+{
+	static uint8_t value; 
+	
+	trame1.RW=1;
+	trame1.adresse = address;
+	trame1.data=data;
+	trame1.MS=0;
+	value= ((trame1.RW)<<7)|trame1.adresse;
+	HAL_SPI_Transmit(&hspi2,&value,8,15);
+	HAL_SPI_Transmit(&hspi2,&data,8,15);
+}
 
 
 // ----------------------------------------------------------------
@@ -82,7 +96,8 @@
 void LIS3DH_Init(void)  
 {
 
-	// A compléter...
+	writeRegister8(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
+	writeRegister8(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
 	
 }
 
@@ -93,7 +108,7 @@ void LIS3DH_Init(void)
 bool LIS3DH_Write(uint8_t regAddr, uint8_t data)
 {
 
-	// A compléter...
+	writeRegister8(regAddr,data);
 	
 }
 
@@ -103,9 +118,13 @@ bool LIS3DH_Write(uint8_t regAddr, uint8_t data)
 // Valeur de retour : True si opération ok, false sinon
 bool LIS3DH_Read(uint8_t regAddr, uint8_t* data)
 {
-	
-	// A compléter...
-	
+	trame1.RW=0;
+	trame1.adresse = regAddr;
+	static uint8_t value;
+	value= ((trame1.RW)<<7)|trame1.adresse;
+	HAL_SPI_Transmit(&hspi2,&value,8,15);
+	HAL_SPI_Receive(&hspi2,&value,8,15);
+	trame1.data=value;
 } 
 
 // ----------------------------------------------------------------
@@ -114,7 +133,22 @@ bool LIS3DH_Read(uint8_t regAddr, uint8_t* data)
 // Valeur de retour : True si opération ok, false sinon
 bool LIS3DH_ReadAcc(int16_t* pValAcc)
 {
-	
+	static uint8_t value;
 	// A compléter...
+	
+	LIS3DH_Read(ADDR_OUT_X_L,&value);
+	pValAcc[XVALUE] = value;
+	LIS3DH_Read(ADDR_OUT_X_H,&value);
+	pValAcc[XVALUE]=(pValAcc[XVALUE] | (value<<8)); 
+	
+	LIS3DH_Read(ADDR_OUT_Y_L,&value);
+	pValAcc[YVALUE] = value;
+	LIS3DH_Read(ADDR_OUT_Y_H,&value);
+	pValAcc[YVALUE]=(pValAcc[YVALUE] | (value<<8)); 
+	
+	LIS3DH_Read(ADDR_OUT_Z_L,&value);
+	pValAcc[ZVALUE] = value;
+	LIS3DH_Read(ADDR_OUT_Z_H,&value);
+	pValAcc[ZVALUE]=(pValAcc[ZVALUE] | (value<<8)); 
 	
 }

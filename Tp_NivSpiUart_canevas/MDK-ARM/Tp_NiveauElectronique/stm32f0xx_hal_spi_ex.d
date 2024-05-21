@@ -21,8 +21,6 @@ tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/In
 tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma.h
 tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma_ex.h
 tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_cortex.h
-tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_adc.h
-tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_adc_ex.h
 tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash.h
 tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash_ex.h
 tp_niveauelectronique\stm32f0xx_hal_spi_ex.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h

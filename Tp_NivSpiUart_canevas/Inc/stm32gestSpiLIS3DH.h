@@ -16,8 +16,20 @@
 #ifndef stm32gestSpiLIS3DH_H
 #define stm32gestSpiLIS3DH_H
 
+#pragma anon_unions
+
 #include <stdint.h>
 #include <stdbool.h>
+
+typedef union{
+	struct{
+		uint8_t RW:1;
+		uint8_t MS:1;
+		uint8_t adresse:5;
+		uint8_t data;
+	};
+	short trame;
+}tramespi;
 
 // prototypes des fonctions
 

@@ -117,6 +117,10 @@ void Error_Handler(void);
 #define LCDE_Pin GPIO_PIN_12
 #define LCDE_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
+#define XVALUE 0
+#define YVALUE 1
+#define ZVALUE 2
+#define NBAXES 3
 
 /* USER CODE END Private defines */
 
