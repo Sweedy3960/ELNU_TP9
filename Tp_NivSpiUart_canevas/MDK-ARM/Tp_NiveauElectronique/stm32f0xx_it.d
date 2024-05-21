@@ -35,4 +35,5 @@ tp_niveauelectronique\stm32f0xx_it.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f
 tp_niveauelectronique\stm32f0xx_it.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 tp_niveauelectronique\stm32f0xx_it.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
 tp_niveauelectronique\stm32f0xx_it.o: ../Inc/stm32f0xx_it.h
+tp_niveauelectronique\stm32f0xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 tp_niveauelectronique\stm32f0xx_it.o: ../Inc/17400.h

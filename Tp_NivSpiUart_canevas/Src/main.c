@@ -30,7 +30,11 @@
 #include "17400.h"
 #include "stm32driverlcd.h"
 #include "stm32gestSpiLIS3DH.h"
-
+#include "stm32delays.h"
+#include "stm32driverlcd.h"
+#include "time.h"
+#include "stm32f0xx_it.h"
+#include <stdlib.h>
 
 /* USER CODE END Includes */
 
@@ -55,7 +59,7 @@ typedef enum { MODE_STD, MODE_CAL} MODES;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
- 
+e_States state = INIT;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,12 +70,45 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+bool flag10Ms;//=false;
+static bool InitialisationHasOccured = false;
 // ----------------------------------------------------------------
 	// *** A COMPLETER ! ***
 	// Mettez vos fonctions ici...
 	
+	void LectureDuFlag10ms(void)
+//cette fonction vérifie si le flag de 1ms est actif pour calculer les timmings demander 
+//de plus la lecture des entré est faite lorsque que le flag est actif ce qui permet d'avoir 
+//une base de temps pour les echantillons du buffer d'entrée au détriment du temps de réaction
+{
 	
+	static uint16_t cntTime = 0;
+	//test du flag 
+	if(flag10Ms)
+	{
+		flag10Ms=false; 
+		cntTime++;
+		if (cntTime%_25MSEC == 0)
+		{
+			state = (InitialisationHasOccured)? EXEC: INIT;
+			if(cntTime < _3SEC)
+			{
+				if(!(cntTime %_250MSEC))
+				{
+					GPIOC -> ODR ^= LEDS;
+				}
+			}
+			else
+			{
+				InitialisationHasOccured=true;
+				GPIOC -> ODR |= LEDS;
+				cntTime = _3SEC;
+				state = EXEC;
+			}
+		}		
+	}
+}
+
 // ----------------------------------------------------------------
 
 /* USER CODE END 0 */
@@ -125,7 +162,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+		
     /* USER CODE BEGIN 3 */
 	
 		// *** A COMPLETER ! ***

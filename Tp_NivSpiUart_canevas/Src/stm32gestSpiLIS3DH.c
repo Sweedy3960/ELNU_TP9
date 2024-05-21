@@ -73,18 +73,19 @@
 #define VALINIT_CTRL_REG1   0x47    // Signification ?
 #define VALINIT_CTRL_REG4   0x88    // Signification ?
 tramespi trame1;
+static bool errCode; 
 // write register
-void writeRegister8 (uint8_t address, uint8_t data)
+bool writeRegister8 (uint8_t address, uint8_t data)
 {
 	static uint8_t value; 
-	
 	trame1.RW=1;
 	trame1.adresse = address;
 	trame1.data=data;
 	trame1.MS=0;
-	value= ((trame1.RW)<<7)|trame1.adresse;
-	HAL_SPI_Transmit(&hspi2,&value,8,15);
-	HAL_SPI_Transmit(&hspi2,&data,8,15);
+	value= (((trame1.RW)<<7)|trame1.adresse|((trame1.MS)<<6));
+	errCode=HAL_SPI_Transmit(&hspi2,&value,8,15);
+	errCode=HAL_SPI_Transmit(&hspi2,&data,8,15);
+	return errCode;
 }
 
 
@@ -96,8 +97,8 @@ void writeRegister8 (uint8_t address, uint8_t data)
 void LIS3DH_Init(void)  
 {
 
-	writeRegister8(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
-	writeRegister8(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
+	errCode=writeRegister8(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
+	errCode=writeRegister8(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
 	
 }
 
@@ -108,8 +109,8 @@ void LIS3DH_Init(void)
 bool LIS3DH_Write(uint8_t regAddr, uint8_t data)
 {
 
-	writeRegister8(regAddr,data);
-	
+	errCode=writeRegister8(regAddr,data);
+	return errCode;
 }
 
 // ----------------------------------------------------------------
@@ -123,8 +124,9 @@ bool LIS3DH_Read(uint8_t regAddr, uint8_t* data)
 	static uint8_t value;
 	value= ((trame1.RW)<<7)|trame1.adresse;
 	HAL_SPI_Transmit(&hspi2,&value,8,15);
-	HAL_SPI_Receive(&hspi2,&value,8,15);
+	errCode=HAL_SPI_Receive(&hspi2,&value,8,15);
 	trame1.data=value;
+	return errCode;
 } 
 
 // ----------------------------------------------------------------
@@ -136,19 +138,20 @@ bool LIS3DH_ReadAcc(int16_t* pValAcc)
 	static uint8_t value;
 	// A compléter...
 	
-	LIS3DH_Read(ADDR_OUT_X_L,&value);
+	errCode=LIS3DH_Read(ADDR_OUT_X_L,&value);
 	pValAcc[XVALUE] = value;
-	LIS3DH_Read(ADDR_OUT_X_H,&value);
+	errCode=LIS3DH_Read(ADDR_OUT_X_H,&value);
 	pValAcc[XVALUE]=(pValAcc[XVALUE] | (value<<8)); 
 	
-	LIS3DH_Read(ADDR_OUT_Y_L,&value);
+	errCode=LIS3DH_Read(ADDR_OUT_Y_L,&value);
 	pValAcc[YVALUE] = value;
-	LIS3DH_Read(ADDR_OUT_Y_H,&value);
+	errCode=LIS3DH_Read(ADDR_OUT_Y_H,&value);
 	pValAcc[YVALUE]=(pValAcc[YVALUE] | (value<<8)); 
 	
-	LIS3DH_Read(ADDR_OUT_Z_L,&value);
+	errCode=LIS3DH_Read(ADDR_OUT_Z_L,&value);
 	pValAcc[ZVALUE] = value;
-	LIS3DH_Read(ADDR_OUT_Z_H,&value);
+	errCode=LIS3DH_Read(ADDR_OUT_Z_H,&value);
 	pValAcc[ZVALUE]=(pValAcc[ZVALUE] | (value<<8)); 
+	return errCode;
 	
 }

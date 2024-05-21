@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Tp_NiveauElectronique\Tp_NiveauElectronique.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Tp_NiveauElectronique\Tp_NiveauElectronique.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue May 21 15:57:11 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Tue May 21 16:32:27 2024
 <BR><P>
 <H3>Maximum Stack Usage =        224 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -503,7 +503,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f051x8.o(RESET)
 </UL>
-<P><STRONG><a name="[57]"></a>LIS3DH_Init</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, stm32gestspilis3dh.o(i.LIS3DH_Init))
+<P><STRONG><a name="[57]"></a>LIS3DH_Init</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, stm32gestspilis3dh.o(i.LIS3DH_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = LIS3DH_Init &rArr; writeRegister8 &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFifoStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeRegister8
@@ -584,7 +584,7 @@ Global Symbols
 <P><STRONG><a name="[24]"></a>SystemInit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, system_stm32f0xx.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f051x8.o(.text)
 </UL>
-<P><STRONG><a name="[17]"></a>TIM6_DAC_IRQHandler</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, stm32f0xx_it.o(i.TIM6_DAC_IRQHandler))
+<P><STRONG><a name="[17]"></a>TIM6_DAC_IRQHandler</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, stm32f0xx_it.o(i.TIM6_DAC_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; HAL_TIM_IRQHandler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler
@@ -656,7 +656,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[58]"></a>writeRegister8</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, stm32gestspilis3dh.o(i.writeRegister8))
+<P><STRONG><a name="[58]"></a>writeRegister8</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, stm32gestspilis3dh.o(i.writeRegister8))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = writeRegister8 &rArr; HAL_SPI_Transmit &rArr; SPI_EndRxTxTransaction &rArr; SPI_WaitFifoStateUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit

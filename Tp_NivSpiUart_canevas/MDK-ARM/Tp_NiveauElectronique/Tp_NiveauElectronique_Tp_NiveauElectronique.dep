@@ -1,12 +1,12 @@
 Dependencies for Project 'Tp_NiveauElectronique', Target 'Tp_NiveauElectronique': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f051x8.s)(0x664C963D)(--cpu Cortex-M0 --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include--pd "__UVISION_VERSION SETA 533" --pd "_RTE_ SETA 1" --pd "STM32F051x8 SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f051x8.lst --xref -o tp_niveauelectronique\startup_stm32f051x8.o --depend tp_niveauelectronique\startup_stm32f051x8.d)
-F (..\Src\stm32gestSpiLIS3DH.c)(0x664CA834)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\stm32gestspilis3dh.o --omf_browse tp_niveauelectronique\stm32gestspilis3dh.crf --depend tp_niveauelectronique\stm32gestspilis3dh.d)
+F (..\Src\stm32gestSpiLIS3DH.c)(0x664CAF65)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\stm32gestspilis3dh.o --omf_browse tp_niveauelectronique\stm32gestspilis3dh.crf --depend tp_niveauelectronique\stm32gestspilis3dh.d)
 I (../Inc/stm32gestSpiLIS3DH.h)(0x664CA835)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5E8E9122)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E8E9122)
 I (../Inc/gpio.h)(0x664C963B)
-I (../Inc/main.h)(0x664CA835)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -114,8 +114,8 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x65E35DDE)
-F (../Src/main.c)(0x664CA835)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\main.o --omf_browse tp_niveauelectronique\main.crf --depend tp_niveauelectronique\main.d)
-I (../Inc/main.h)(0x664CA835)
+F (../Src/main.c)(0x664CB077)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\main.o --omf_browse tp_niveauelectronique\main.crf --depend tp_niveauelectronique\main.d)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -158,9 +158,13 @@ I (../Inc/stm32driverlcd.h)(0x63FCABCE)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x5E8E9122)
 I (../Inc/stm32gestSpiLIS3DH.h)(0x664CA835)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E8E9122)
+I (../Inc/stm32delays.h)(0x63623758)
+I (C:\Keil_v5\ARM\ARMCC\include\time.h)(0x5E8E9122)
+I (../Inc/stm32f0xx_it.h)(0x664CB00C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5E8E9122)
 F (../Src/gpio.c)(0x664C963B)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\gpio.o --omf_browse tp_niveauelectronique\gpio.crf --depend tp_niveauelectronique\gpio.d)
 I (../Inc/gpio.h)(0x664C963B)
-I (../Inc/main.h)(0x664CA835)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -196,7 +200,7 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x65E35DDE)
 F (../Src/spi.c)(0x664C963C)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\spi.o --omf_browse tp_niveauelectronique\spi.crf --depend tp_niveauelectronique\spi.d)
 I (../Inc/spi.h)(0x664C963C)
-I (../Inc/main.h)(0x664CA835)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -232,7 +236,7 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x65E35DDE)
 F (../Src/tim.c)(0x664C963C)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\tim.o --omf_browse tp_niveauelectronique\tim.crf --depend tp_niveauelectronique\tim.d)
 I (../Inc/tim.h)(0x664C963C)
-I (../Inc/main.h)(0x664CA835)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -268,7 +272,7 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x65E35DDE)
 F (../Src/usart.c)(0x664C963C)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\usart.o --omf_browse tp_niveauelectronique\usart.crf --depend tp_niveauelectronique\usart.d)
 I (../Inc/usart.h)(0x664C963C)
-I (../Inc/main.h)(0x664CA835)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -302,8 +306,8 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x65E35DDE)
-F (../Src/stm32f0xx_it.c)(0x664C963C)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\stm32f0xx_it.o --omf_browse tp_niveauelectronique\stm32f0xx_it.crf --depend tp_niveauelectronique\stm32f0xx_it.d)
-I (../Inc/main.h)(0x664CA835)
+F (../Src/stm32f0xx_it.c)(0x664CB059)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\stm32f0xx_it.o --omf_browse tp_niveauelectronique\stm32f0xx_it.crf --depend tp_niveauelectronique\stm32f0xx_it.d)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)
@@ -337,10 +341,11 @@ I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h)(0x65E35DDE)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h)(0x65E35DDE)
-I (../Inc/stm32f0xx_it.h)(0x664C963C)
+I (../Inc/stm32f0xx_it.h)(0x664CB00C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5E8E9122)
 I (../Inc/17400.h)(0x6001513E)
 F (../Src/stm32f0xx_hal_msp.c)(0x664C963C)(--c99 -c --cpu Cortex-M0 -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc -I ../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_Tp_NiveauElectronique-IC:\Keil_v5\Arm\Pack\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Keil_v5\Arm\Pack\Keil\STM32F0xx_DFP\2.1.1\Drivers\CMSIS\Device\ST\STM32F0xx\Include-D__UVISION_VERSION="533" -D_RTE_ -DSTM32F051x8 -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F051x8-o tp_niveauelectronique\stm32f0xx_hal_msp.o --omf_browse tp_niveauelectronique\stm32f0xx_hal_msp.crf --depend tp_niveauelectronique\stm32f0xx_hal_msp.d)
-I (../Inc/main.h)(0x664CA835)
+I (../Inc/main.h)(0x664CA9E7)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h)(0x65E35DDE)
 I (../Inc/stm32f0xx_hal_conf.h)(0x664C963C)
 I (../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_rcc.h)(0x65E35DDE)

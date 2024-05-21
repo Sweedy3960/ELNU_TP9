@@ -54,7 +54,7 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
+typedef enum {INIT,EXEC,IDLE}e_States;
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
@@ -121,6 +121,25 @@ void Error_Handler(void);
 #define YVALUE 1
 #define ZVALUE 2
 #define NBAXES 3
+
+//Defines pour timings 
+#define _3SEC 3000
+#define _500MSEC 500
+#define _250MSEC 250
+#define _25MSEC 25
+
+
+#define ALLS 0x0F
+#define S2 0x01
+#define S3 0x02
+#define S4 0x04
+#define S5 0x08
+
+#define LEDS 0x00F0
+#define LED0 0x0010
+#define LED1 0x0020
+#define LED2 0x0040
+#define LED3 0x0080
 
 /* USER CODE END Private defines */
 
