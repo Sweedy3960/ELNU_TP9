@@ -41,10 +41,6 @@
      PA5   ------> SPI1_SCK
      PA6   ------> SPI1_MISO
      PA7   ------> SPI1_MOSI
-     PA9   ------> USART1_TX
-     PA10   ------> USART1_RX
-     PA11   ------> USART1_CTS
-     PA12   ------> USART1_RTS
      PF6   ------> I2C2_SCL
      PF7   ------> I2C2_SDA
 */
@@ -115,14 +111,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(MFP_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : PAPin PAPin PAPin PAPin */
-  GPIO_InitStruct.Pin = USART1TX_Pin|USART1RX_Pin|USART1CTS_Pin|USART1RTS_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF1_USART1;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PF6 PF7 */
   GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
