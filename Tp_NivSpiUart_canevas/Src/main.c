@@ -158,16 +158,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	uint16_t pValAcc[NBAXES];
+	int16_t pValAcc[NBAXES];
+	uint8_t value=0;
+	uint8_t *pt_value =&value;
   while (1)
   {
     /* USER CODE END WHILE */
-		
+
     /* USER CODE BEGIN 3 */
 	
 		// *** A COMPLETER ! ***
-		
-		
+		LIS3DH_Read(0x0F,pt_value);
+		LIS3DH_ReadAcc(pValAcc);
   }
   /* USER CODE END 3 */
 }

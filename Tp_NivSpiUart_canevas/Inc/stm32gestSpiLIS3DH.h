@@ -25,10 +25,10 @@ typedef union{
 	struct{
 		uint8_t RW:1;
 		uint8_t MS:1;
-		uint8_t adresse:5;
+		uint8_t adresse:6;
 		uint8_t data;
 	};
-	short trame;
+	short tb_trame[8];
 }tramespi;
 
 // prototypes des fonctions

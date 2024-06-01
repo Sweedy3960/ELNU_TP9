@@ -54,9 +54,9 @@ extern "C" {
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-typedef enum {INIT,EXEC,IDLE}e_States;
-/* USER CODE BEGIN EFP */
 
+/* USER CODE BEGIN EFP */
+typedef enum {INIT,EXEC,IDLE}e_States;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -90,6 +90,8 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LED0_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_5
 #define LED1_GPIO_Port GPIOC
+#define nCs_Pin GPIO_PIN_12
+#define nCs_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_6
 #define LED2_GPIO_Port GPIOC
 #define LED3_Pin GPIO_PIN_7

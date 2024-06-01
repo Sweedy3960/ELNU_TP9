@@ -73,7 +73,8 @@
 #define VALINIT_CTRL_REG1   0x47    // Signification ?
 #define VALINIT_CTRL_REG4   0x88    // Signification ?
 tramespi trame1;
-static bool errCode; 
+bool errCode; 
+
 // write register
 bool writeRegister8 (uint8_t address, uint8_t data)
 {
@@ -83,8 +84,11 @@ bool writeRegister8 (uint8_t address, uint8_t data)
 	trame1.data=data;
 	trame1.MS=0;
 	value= (((trame1.RW)<<7)|trame1.adresse|((trame1.MS)<<6));
-	errCode=HAL_SPI_Transmit(&hspi2,&value,8,15);
-	errCode=HAL_SPI_Transmit(&hspi2,&data,8,15);
+	errCode=HAL_SPI_Transmit(&hspi2,&value,1,15);
+	if (hspi2.State == HAL_SPI_STATE_READY)
+  {
+		errCode=HAL_SPI_Transmit(&hspi2,&data,1,15);
+	}
 	return errCode;
 }
 
@@ -96,10 +100,23 @@ bool writeRegister8 (uint8_t address, uint8_t data)
 // Valeur de retour : -
 void LIS3DH_Init(void)  
 {
-
-	errCode=writeRegister8(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
-	errCode=writeRegister8(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
 	
+	uint8_t statusValue = 0;
+	if (hspi2.State == HAL_SPI_STATE_READY)
+  {
+		GPIOB -> ODR &= ~nCs_Pin;
+		errCode=writeRegister8(ADDR_CTRL_REG0,0x10);
+		errCode=writeRegister8(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
+		errCode=writeRegister8(ADDR_CTRL_REG2,0);
+		errCode=writeRegister8(ADDR_CTRL_REG3,0);
+		errCode=writeRegister8(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
+		errCode=writeRegister8(ADDR_CTRL_REG5,0);
+		errCode=writeRegister8(ADDR_CTRL_REG6,0);
+		LIS3DH_Read(ADDR_STATUS_REG2,&statusValue);
+		GPIOB -> ODR |= nCs_Pin;
+		
+	}
+
 }
 
 // ----------------------------------------------------------------
@@ -117,15 +134,21 @@ bool LIS3DH_Write(uint8_t regAddr, uint8_t data)
 // Lecture 1 registre du LIS3DH
 // Paramètre(s) : regAddr=adresse du registre / *data=donnée lue
 // Valeur de retour : True si opération ok, false sinon
-bool LIS3DH_Read(uint8_t regAddr, uint8_t* data)
+bool LIS3DH_Read(uint8_t regAddr, uint8_t *data)
 {
+	static uint8_t txValue;
+	static uint8_t rxValue;
 	trame1.RW=0;
 	trame1.adresse = regAddr;
-	static uint8_t value;
-	value= ((trame1.RW)<<7)|trame1.adresse;
-	HAL_SPI_Transmit(&hspi2,&value,8,15);
-	errCode=HAL_SPI_Receive(&hspi2,&value,8,15);
-	trame1.data=value;
+	txValue= (((trame1.RW)<<7)|trame1.adresse);
+	 if (hspi2.State == HAL_SPI_STATE_READY)
+  {
+		GPIOB -> ODR &= ~nCs_Pin;
+		errCode = HAL_SPI_TransmitReceive(&hspi2,&txValue,&rxValue,2,15);
+		GPIOB -> ODR |= nCs_Pin;
+	}
+	 
+
 	return errCode;
 } 
 
