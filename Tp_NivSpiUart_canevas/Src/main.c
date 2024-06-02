@@ -35,7 +35,7 @@
 #include "time.h"
 #include "stm32f0xx_it.h"
 #include <stdlib.h>
-
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -76,8 +76,8 @@ static bool InitialisationHasOccured = false;
 	// *** A COMPLETER ! ***
 	// Mettez vos fonctions ici...
 	
-	void LectureDuFlag10ms(void)
-//cette fonction vérifie si le flag de 1ms est actif pour calculer les timmings demander 
+bool LectureDuFlag10ms(void)
+//cette fonction vérifie si le flag de 10ms est actif pour calculer les timmings demander 
 //de plus la lecture des entré est faite lorsque que le flag est actif ce qui permet d'avoir 
 //une base de temps pour les echantillons du buffer d'entrée au détriment du temps de réaction
 {
@@ -88,27 +88,78 @@ static bool InitialisationHasOccured = false;
 	{
 		flag10Ms=false; 
 		cntTime++;
-		if (cntTime%_25MSEC == 0)
+		if(cntTime < _3SEC)
 		{
-			state = (InitialisationHasOccured)? EXEC: INIT;
-			if(cntTime < _3SEC)
-			{
-				if(!(cntTime %_250MSEC))
-				{
-					GPIOC -> ODR ^= LEDS;
-				}
-			}
-			else
-			{
-				InitialisationHasOccured=true;
-				GPIOC -> ODR |= LEDS;
-				cntTime = _3SEC;
-				state = EXEC;
-			}
-		}		
+		   GPIOC -> ODR &= ~LEDS;
+		}
+		else
+		{
+		   InitialisationHasOccured=true;
+			 GPIOC -> ODR |= LEDS;
+			 cntTime = _3SEC;
+			 state = EXEC;
+		}
+		return 1;	
+	}
+	return 0;
+}
+void initialisation(void)
+{
+	if (!(InitialisationHasOccured))
+	{
+		lcd_gotoxy(1,1);
+		printf_lcd("TP Niveau El. <2024> ");
+		lcd_gotoxy(1,2);
+		printf_lcd("VCO ACL");
+		lcd_bl_on();
 	}
 }
+int calculAngle(int16_t* pValAcc)
+{
+	float anle_degree =(atan2(pValAcc[0],pValAcc[2]))*180/PI;
+	return anle_degree;
 
+}
+void affichageligne1(int16_t *angle)
+{
+	lcd_gotoxy(1,1);
+	printf_lcd("       %3d%1c",*angle,0xDF);
+	
+}
+void affichageligne2()
+{
+	
+	
+}
+void affichageLCD(int16_t *angle)
+{
+	lcd_clearScreen();
+	affichageligne1(&(*angle));
+	affichageligne2();
+}
+
+
+
+void affichageBulle()
+{
+	
+	
+}
+void transmitpc()
+{
+	
+
+
+}
+void execution (int16_t* pValAcc)
+{
+	int16_t angle=0;
+	LIS3DH_ReadAcc(pValAcc);
+	angle=calculAngle(pValAcc);
+	affichageLCD(&angle);
+	affichageBulle();
+	transmitpc();
+}
 // ----------------------------------------------------------------
 
 /* USER CODE END 0 */
@@ -152,24 +203,47 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
-	HAL_SPI_Init(&hspi2);
 	LIS3DH_Init();
+	HAL_TIM_Base_Start_IT(&htim6);
+	lcd_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	int16_t pValAcc[NBAXES];
-	uint8_t value=0;
-	uint8_t *pt_value =&value;
+	
+	
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	
-		// *** A COMPLETER ! ***
-		LIS3DH_Read(0x0F,pt_value);
-		LIS3DH_ReadAcc(pValAcc);
+		/* TEST 
+		if(LectureDuFlag10ms())
+		{
+			
+			//LIS3DH_Read(0x0F,&value);
+			
+		}
+		*/
+		// *** A COMPLETER ! ***		
+		switch(state)
+		{
+			case INIT:
+				state = IDLE;
+				initialisation();
+				break;
+			case EXEC:
+				
+				execution(pValAcc);
+				state = IDLE;
+				break;
+			case IDLE:
+				break;
+			default: 
+				break;
+		}
+		LectureDuFlag10ms();
   }
   /* USER CODE END 3 */
 }

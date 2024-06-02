@@ -90,8 +90,8 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LED0_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_5
 #define LED1_GPIO_Port GPIOC
-#define nCs_Pin GPIO_PIN_12
-#define nCs_GPIO_Port GPIOB
+#define CS_Pin GPIO_PIN_12
+#define CS_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_6
 #define LED2_GPIO_Port GPIOC
 #define LED3_Pin GPIO_PIN_7
@@ -102,8 +102,6 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LCDDB5_GPIO_Port GPIOC
 #define MFP_Pin GPIO_PIN_8
 #define MFP_GPIO_Port GPIOA
-#define USART1TX_Pin GPIO_PIN_9
-#define USART1TX_GPIO_Port GPIOA
 #define USART1RX_Pin GPIO_PIN_10
 #define USART1RX_GPIO_Port GPIOA
 #define USART1CTS_Pin GPIO_PIN_11
@@ -118,14 +116,19 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LCDDB7_GPIO_Port GPIOC
 #define LCDE_Pin GPIO_PIN_12
 #define LCDE_GPIO_Port GPIOC
+#define USART1TX_Pin GPIO_PIN_6
+#define USART1TX_GPIO_Port GPIOB
+#define RXDCLK_Pin GPIO_PIN_7
+#define RXDCLK_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 #define XVALUE 0
 #define YVALUE 1
 #define ZVALUE 2
 #define NBAXES 3
+#define PI 3.141
 
 //Defines pour timings 
-#define _3SEC 3000
+#define _3SEC 300
 #define _500MSEC 500
 #define _250MSEC 250
 #define _25MSEC 25

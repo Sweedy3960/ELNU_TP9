@@ -70,27 +70,10 @@
 
 
 //Valeurs d'initialisation des registres
-#define VALINIT_CTRL_REG1   0x47    // Signification ?
-#define VALINIT_CTRL_REG4   0x88    // Signification ?
+#define VALINIT_CTRL_REG1   0x47    // HR / Normal / Low-power mode (50 Hz)/high res
+#define VALINIT_CTRL_REG4   0x88    // registre update quand lus/+-2g/high res enable/ pas de selft test 
 tramespi trame1;
 bool errCode; 
-
-// write register
-bool writeRegister8 (uint8_t address, uint8_t data)
-{
-	static uint8_t value; 
-	trame1.RW=1;
-	trame1.adresse = address;
-	trame1.data=data;
-	trame1.MS=0;
-	value= (((trame1.RW)<<7)|trame1.adresse|((trame1.MS)<<6));
-	errCode=HAL_SPI_Transmit(&hspi2,&value,1,15);
-	if (hspi2.State == HAL_SPI_STATE_READY)
-  {
-		errCode=HAL_SPI_Transmit(&hspi2,&data,1,15);
-	}
-	return errCode;
-}
 
 
 // ----------------------------------------------------------------
@@ -104,16 +87,17 @@ void LIS3DH_Init(void)
 	uint8_t statusValue = 0;
 	if (hspi2.State == HAL_SPI_STATE_READY)
   {
-		GPIOB -> ODR &= ~nCs_Pin;
-		errCode=writeRegister8(ADDR_CTRL_REG0,0x10);
-		errCode=writeRegister8(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
-		errCode=writeRegister8(ADDR_CTRL_REG2,0);
-		errCode=writeRegister8(ADDR_CTRL_REG3,0);
-		errCode=writeRegister8(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
-		errCode=writeRegister8(ADDR_CTRL_REG5,0);
-		errCode=writeRegister8(ADDR_CTRL_REG6,0);
+		//errCode=writeRegister(ADDR_CTRL_REG0,0x90);
+		
+		errCode=LIS3DH_Write(ADDR_TEMP_CFG_REG,0x40);
+		errCode=LIS3DH_Write(ADDR_CTRL_REG1,VALINIT_CTRL_REG1);
+		//errCode=writeRegister(ADDR_CTRL_REG2,0);
+		//errCode=writeRegister(ADDR_CTRL_REG3,0);
+		errCode=LIS3DH_Write(ADDR_CTRL_REG4,VALINIT_CTRL_REG4);
+	
+		//errCode=writeRegister(ADDR_CTRL_REG5,0);
+		//errCode=writeRegister(ADDR_CTRL_REG6,0);
 		LIS3DH_Read(ADDR_STATUS_REG2,&statusValue);
-		GPIOB -> ODR |= nCs_Pin;
 		
 	}
 
@@ -123,32 +107,49 @@ void LIS3DH_Init(void)
 // Ecriture 1 registre du LIS3DH
 // Paramètre(s) : regAddr=adresse du registre / data=donnée à écrire
 // Valeur de retour : True si opération ok, false sinon
-bool LIS3DH_Write(uint8_t regAddr, uint8_t data)
+bool LIS3DH_Write(uint8_t address, uint8_t data)
 {
 
-	errCode=writeRegister8(regAddr,data);
+	static uint8_t tx_Buffer[2];
+	static uint8_t rx_Buffer[2];	
+	uint8_t readWrite = 0;
+	
+	tx_Buffer[0]= ((readWrite<<7)|address);
+	tx_Buffer[1]= data;
+	GPIOB->ODR &= ~CS_Pin;
+	if (hspi2.State == HAL_SPI_STATE_READY)
+  {
+		errCode=HAL_SPI_TransmitReceive(&hspi2,tx_Buffer,rx_Buffer,2,100);
+		//errCode=HAL_SPI_TransmitReceive(&hspi2,&value[1],&response,2,100);
+		//HAL_SPI_Transmit(&hspi2,tx_Buffer,2,100);
+		//HAL_SPI_Transmit(&hspi2,&value[1],1,100);
+	}
+	GPIOB->ODR |= CS_Pin;
 	return errCode;
+	
 }
 
 // ----------------------------------------------------------------
 // Lecture 1 registre du LIS3DH
 // Paramètre(s) : regAddr=adresse du registre / *data=donnée lue
 // Valeur de retour : True si opération ok, false sinon
-bool LIS3DH_Read(uint8_t regAddr, uint8_t *data)
+bool LIS3DH_Read(uint8_t address, uint8_t *data)
 {
-	static uint8_t txValue;
-	static uint8_t rxValue;
-	trame1.RW=0;
-	trame1.adresse = regAddr;
-	txValue= (((trame1.RW)<<7)|trame1.adresse);
-	 if (hspi2.State == HAL_SPI_STATE_READY)
+	static uint8_t tx_Buffer[2];
+	static uint8_t rx_Buffer[2];	
+	uint8_t readWrite = 1;
+	
+	tx_Buffer[0]= ((readWrite<<7)|address);
+	GPIOB->ODR &= ~CS_Pin;
+	if (hspi2.State == HAL_SPI_STATE_READY)
   {
-		GPIOB -> ODR &= ~nCs_Pin;
-		errCode = HAL_SPI_TransmitReceive(&hspi2,&txValue,&rxValue,2,15);
-		GPIOB -> ODR |= nCs_Pin;
+		errCode=HAL_SPI_TransmitReceive(&hspi2,tx_Buffer,rx_Buffer,2,100);
+		//errCode=HAL_SPI_TransmitReceive(&hspi2,&value[1],&response,2,100);
+		//HAL_SPI_Transmit(&hspi2,&value[0],1,100);
+		//HAL_SPI_Transmit(&hspi2,&value[1],1,100);
 	}
-	 
-
+	GPIOB->ODR |= CS_Pin;
+	*data= rx_Buffer[1];
 	return errCode;
 } 
 

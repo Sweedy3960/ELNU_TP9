@@ -37,7 +37,7 @@ void LIS3DH_Init(void);
 
 bool LIS3DH_Write(uint8_t regAddr, uint8_t data);
 
-bool LIS3DH_Read(uint8_t regAddr, uint8_t* data);
+bool LIS3DH_Read(uint8_t regAddr, uint8_t *data);
 
 bool LIS3DH_ReadAcc(int16_t* pValAcc);
 
