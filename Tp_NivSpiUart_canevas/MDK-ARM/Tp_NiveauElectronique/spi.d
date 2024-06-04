@@ -23,8 +23,6 @@ tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_e
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma_ex.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_cortex.h
-tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_adc.h
-tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_adc_ex.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_flash_ex.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c.h
@@ -37,5 +35,3 @@ tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_t
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart.h
 tp_niveauelectronique\spi.o: ../Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_uart_ex.h
-tp_niveauelectronique\spi.o: ../Inc/stm32debounce.h
-tp_niveauelectronique\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

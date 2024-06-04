@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -29,8 +30,12 @@
 #include "17400.h"
 #include "stm32driverlcd.h"
 #include "stm32gestSpiLIS3DH.h"
-
-
+#include "stm32delays.h"
+#include "stm32driverlcd.h"
+#include "time.h"
+#include "stm32f0xx_it.h"
+#include <stdlib.h>
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,7 +59,7 @@ typedef enum { MODE_STD, MODE_CAL} MODES;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
- 
+e_States state = INIT;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -65,12 +70,96 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+bool flag10Ms;//=false;
+static bool InitialisationHasOccured = false;
 // ----------------------------------------------------------------
 	// *** A COMPLETER ! ***
 	// Mettez vos fonctions ici...
 	
+bool LectureDuFlag10ms(void)
+//cette fonction v�rifie si le flag de 10ms est actif pour calculer les timmings demander 
+//de plus la lecture des entr� est faite lorsque que le flag est actif ce qui permet d'avoir 
+//une base de temps pour les echantillons du buffer d'entr�e au d�triment du temps de r�action
+{
 	
+	static uint16_t cntTime = 0;
+	//test du flag 
+	if(flag10Ms)
+	{
+		flag10Ms=false; 
+		cntTime++;
+		if(cntTime < _3SEC)
+		{
+		   GPIOC -> ODR &= ~LEDS;
+		}
+		else
+		{
+		   InitialisationHasOccured=true;
+			 GPIOC -> ODR |= LEDS;
+			 cntTime = _3SEC;
+			 state = EXEC;
+		}
+		return 1;	
+	}
+	return 0;
+}
+void initialisation(void)
+{
+	if (!(InitialisationHasOccured))
+	{
+		lcd_gotoxy(1,1);
+		printf_lcd("TP Niveau El. <2024> ");
+		lcd_gotoxy(1,2);
+		printf_lcd("VCO ACL");
+		lcd_bl_on();
+	}
+}
+int calculAngle(int16_t* pValAcc)
+{
+	float anle_degree =(atan2(pValAcc[0],pValAcc[2]))*180/PI;
+	return anle_degree;
+
+}
+void affichageligne1(int16_t *angle)
+{
+	lcd_gotoxy(1,1);
+	printf_lcd("       %3d%1c",*angle,0xDF);
+	
+}
+void affichageligne2()
+{
+	
+	
+}
+void affichageLCD(int16_t *angle)
+{
+	lcd_clearScreen();
+	affichageligne1(&(*angle));
+	affichageligne2();
+}
+
+
+
+void affichageBulle()
+{
+	
+	
+}
+void transmitpc()
+{
+	
+
+
+}
+void execution (int16_t* pValAcc)
+{
+	int16_t angle=0;
+	LIS3DH_ReadAcc(pValAcc);
+	angle=calculAngle(pValAcc);
+	affichageLCD(&angle);
+	affichageBulle();
+	transmitpc();
+}
 // ----------------------------------------------------------------
 
 /* USER CODE END 0 */
@@ -112,21 +201,51 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM6_Init();
   MX_USART1_UART_Init();
+
+  MX_SPI2_Init();
+
   /* USER CODE BEGIN 2 */
-	
+	LIS3DH_Init();
+	HAL_TIM_Base_Start_IT(&htim6);
+	lcd_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	int16_t pValAcc[NBAXES];
+	
+	
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	
-		// *** A COMPLETER ! ***
-		
-		
+		/* TEST 
+		if(LectureDuFlag10ms())
+		{
+			
+			//LIS3DH_Read(0x0F,&value);
+			
+		}
+		*/
+		// *** A COMPLETER ! ***		
+		switch(state)
+		{
+			case INIT:
+				state = IDLE;
+				initialisation();
+				break;
+			case EXEC:
+				
+				execution(pValAcc);
+				state = IDLE;
+				break;
+			case IDLE:
+				break;
+			default: 
+				break;
+		}
+		LectureDuFlag10ms();
   }
   /* USER CODE END 3 */
 }

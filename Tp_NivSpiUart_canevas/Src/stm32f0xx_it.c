@@ -23,7 +23,7 @@
 #include "stm32f0xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stdbool.h"
 #include "17400.h"
 
 /* USER CODE END Includes */
@@ -92,6 +92,7 @@ void HardFault_Handler(void)
   while (1)
   {
     /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+		
     /* USER CODE END W1_HardFault_IRQn 0 */
   }
 }
@@ -153,7 +154,7 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE END TIM6_DAC_IRQn 0 */
   HAL_TIM_IRQHandler(&htim6);
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
-
+	flag10Ms = true;
   /* USER CODE END TIM6_DAC_IRQn 1 */
 }
 

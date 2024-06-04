@@ -56,7 +56,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+typedef enum {INIT,EXEC,IDLE}e_States;
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -90,6 +90,8 @@ void Error_Handler(void);
 #define LED0_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_5
 #define LED1_GPIO_Port GPIOC
+#define CS_Pin GPIO_PIN_12
+#define CS_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_6
 #define LED2_GPIO_Port GPIOC
 #define LED3_Pin GPIO_PIN_7
@@ -100,8 +102,6 @@ void Error_Handler(void);
 #define LCDDB5_GPIO_Port GPIOC
 #define MFP_Pin GPIO_PIN_8
 #define MFP_GPIO_Port GPIOA
-#define USART1TX_Pin GPIO_PIN_9
-#define USART1TX_GPIO_Port GPIOA
 #define USART1RX_Pin GPIO_PIN_10
 #define USART1RX_GPIO_Port GPIOA
 #define USART1CTS_Pin GPIO_PIN_11
@@ -116,7 +116,35 @@ void Error_Handler(void);
 #define LCDDB7_GPIO_Port GPIOC
 #define LCDE_Pin GPIO_PIN_12
 #define LCDE_GPIO_Port GPIOC
+#define USART1TX_Pin GPIO_PIN_6
+#define USART1TX_GPIO_Port GPIOB
+#define RXDCLK_Pin GPIO_PIN_7
+#define RXDCLK_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
+#define XVALUE 0
+#define YVALUE 1
+#define ZVALUE 2
+#define NBAXES 3
+#define PI 3.141
+
+//Defines pour timings 
+#define _3SEC 300
+#define _500MSEC 500
+#define _250MSEC 250
+#define _25MSEC 25
+
+
+#define ALLS 0x0F
+#define S2 0x01
+#define S3 0x02
+#define S4 0x04
+#define S5 0x08
+
+#define LEDS 0x00F0
+#define LED0 0x0010
+#define LED1 0x0020
+#define LED2 0x0040
+#define LED3 0x0080
 
 /* USER CODE END Private defines */
 
