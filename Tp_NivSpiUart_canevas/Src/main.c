@@ -77,9 +77,9 @@ static bool InitialisationHasOccured = false;
 	// Mettez vos fonctions ici...
 	
 bool LectureDuFlag10ms(void)
-//cette fonction vérifie si le flag de 10ms est actif pour calculer les timmings demander 
-//de plus la lecture des entré est faite lorsque que le flag est actif ce qui permet d'avoir 
-//une base de temps pour les echantillons du buffer d'entrée au détriment du temps de réaction
+//cette fonction vï¿½rifie si le flag de 10ms est actif pour calculer les timmings demander 
+//de plus la lecture des entrï¿½ est faite lorsque que le flag est actif ce qui permet d'avoir 
+//une base de temps pour les echantillons du buffer d'entrï¿½e au dï¿½triment du temps de rï¿½action
 {
 	
 	static uint16_t cntTime = 0;
@@ -201,7 +201,9 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM6_Init();
   MX_USART1_UART_Init();
+
   MX_SPI2_Init();
+
   /* USER CODE BEGIN 2 */
 	LIS3DH_Init();
 	HAL_TIM_Base_Start_IT(&htim6);
