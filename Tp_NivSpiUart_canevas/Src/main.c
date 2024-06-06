@@ -141,7 +141,7 @@ bool LectureDuFlag10ms(void)
 	//test du flag 
 	if(flag10Ms)
 	{
-		GPIOB->ODR ^= RXDCLK_Pin;
+	
 		
 		flag10Ms=false; 
 		cntTime++;
@@ -183,16 +183,25 @@ void affichageligne1(int16_t *angle)
 	printf_lcd("       %3d%1c",*angle,0xDF);
 	
 }
-void affichageligne2()
+void Registreadecalage()
 {
 	
-	
+	char tx_Buffer2[2]=  {255,255};
+
+	GPIOB->ODR &= ~RXDCLK_Pin;
+	HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,1,100);
+	GPIOB->ODR |= RXDCLK_Pin;
+	GPIOB->ODR &= ~RXDCLK_Pin;
+
+	tx_Buffer2[0] = 0;
+	HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,1,100);
+	GPIOB->ODR |= RXDCLK_Pin;
 }
 void affichageLCD(int16_t *angle)
 {
 	lcd_clearScreen();
 	affichageligne1(&(*angle));
-	affichageligne2();
+	Registreadecalage();
 }
 
 
@@ -318,8 +327,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	int16_t pValAcc[NBAXES];
 	
-	char tx_Buffer2[2]=  {8};
-
   while (1)
   {
     /* USER CODE END WHILE */
@@ -334,7 +341,7 @@ int main(void)
 		}
 		*//*
 		GPIOB->ODR ^= RXDCLK_Pin;
-		HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,2,100);
+		
 		GPIOB->ODR ^= RXDCLK_Pin;*/
 		// *** A COMPLETER ! ***		
 		switch(state)
