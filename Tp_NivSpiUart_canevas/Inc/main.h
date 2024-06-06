@@ -102,6 +102,8 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LCDDB5_GPIO_Port GPIOC
 #define MFP_Pin GPIO_PIN_8
 #define MFP_GPIO_Port GPIOA
+#define USART1TX_Pin GPIO_PIN_9
+#define USART1TX_GPIO_Port GPIOA
 #define USART1RX_Pin GPIO_PIN_10
 #define USART1RX_GPIO_Port GPIOA
 #define USART1CTS_Pin GPIO_PIN_11
@@ -116,8 +118,6 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LCDDB7_GPIO_Port GPIOC
 #define LCDE_Pin GPIO_PIN_12
 #define LCDE_GPIO_Port GPIOC
-#define USART1TX_Pin GPIO_PIN_6
-#define USART1TX_GPIO_Port GPIOB
 #define RXDCLK_Pin GPIO_PIN_7
 #define RXDCLK_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
@@ -127,6 +127,11 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define NBAXES 3
 #define PI 3.141
 
+
+#define MAXNMAX 0x7FFF
+
+#define MAXNEGVALUE 0xFF4C
+#define MAXPOSITIFVALUE 0x00B4
 //Defines pour timings 
 #define _3SEC 300
 #define _500MSEC 500
@@ -145,7 +150,7 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define LED1 0x0020
 #define LED2 0x0040
 #define LED3 0x0080
-
+#define SIZE 7
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

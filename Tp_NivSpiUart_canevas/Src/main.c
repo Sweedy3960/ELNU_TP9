@@ -36,6 +36,7 @@
 #include "stm32f0xx_it.h"
 #include <stdlib.h>
 #include "math.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,8 +75,62 @@ bool flag10Ms;//=false;
 static bool InitialisationHasOccured = false;
 // ----------------------------------------------------------------
 	// *** A COMPLETER ! ***
-	// Mettez vos fonctions ici...
-	
+	// Mettez vos fonctions ici..
+
+// A utility function to reverse a string	
+void reverse(char str[], int length)
+{
+    int start = 0;
+    int end = length - 1;
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        end--;
+        start++;
+    }
+		//https://www.geeksforgeeks.org/implement-itoa/
+}
+
+char* citoa(int16_t num, char* str, int base)
+{
+    int i = 0;
+    bool isNegative = false;
+ 
+    /* Handle 0 explicitly, otherwise empty string is
+     * printed for 0 */
+    if (num == 0) {
+        str[i++] = '0';
+        str[i] = '\0';
+        return str;
+    }
+ 
+    // In standard itoa(), negative numbers are handled
+    // only with base 10. Otherwise numbers are
+    // considered unsigned.
+    if (num < 0 && base == 10) {
+        isNegative = true;
+        num = -num;
+    }
+ 
+    // Process individual digits
+    while (num != 0) {
+        int rem = num % base;
+        str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
+        num = num / base;
+    }
+ 
+    // If number is negative, append '-'
+    if (isNegative)
+        str[i++] = '-';
+ 
+    str[i] = '\0'; // Append string terminator
+ 
+    // Reverse the string
+    reverse(str, i);
+    //https://www.geeksforgeeks.org/implement-itoa/
+    return str;
+}	
 bool LectureDuFlag10ms(void)
 //cette fonction v�rifie si le flag de 10ms est actif pour calculer les timmings demander 
 //de plus la lecture des entr� est faite lorsque que le flag est actif ce qui permet d'avoir 
@@ -86,6 +141,8 @@ bool LectureDuFlag10ms(void)
 	//test du flag 
 	if(flag10Ms)
 	{
+		GPIOB->ODR ^= RXDCLK_Pin;
+		
 		flag10Ms=false; 
 		cntTime++;
 		if(cntTime < _3SEC)
@@ -140,25 +197,74 @@ void affichageLCD(int16_t *angle)
 
 
 
-void affichageBulle()
+void affichageBulle(int16_t *angle)
 {
-	
+	static char ligne[19] = "----+----=----+----";
+    int16_t index;
+    if (*angle < 0)
+    {
+        index = 9 - abs(*angle); // Pour les angles négatifs, la bulle est plus à gauche
+    }
+    else
+    {
+        index = 9 + *angle; // Pour les angles positifs, la bulle est plus à droite
+    }
+ 
+    // Vérifier les limites
+    if (index < 0)
+    {
+      index = 0;
+    }
+    if (index > 18)
+    {
+      index = 18;
+    }
+   
+    // Réinitialiser la ligne
+    strcpy(ligne, "----+----=----+----");
+   
+    // Placer la bulle
+    ligne[index] = 'O';
+ 
+    // Afficher la ligne
+        lcd_gotoxy(1,2);
+    printf_lcd("%s\n", ligne);
 	
 }
-void transmitpc()
+void transmitpc(int16_t *angle)
 {
+	char tb_affichage[SIZE] ={0};
+	char tb_end[]={'d',0x0D,'\0'};
+	char nbDigit;
+	char retval=0;
 	
-
-
+	nbDigit=(abs(*angle) <10)? 1:(abs(*angle) <100)?2:3;
+	citoa(abs(*angle), &tb_affichage[1], 10);
+	strcat(&tb_affichage[nbDigit],tb_end);
+	if((uint16_t)*angle < MAXNMAX)
+	{
+		tb_affichage[0]='+';
+	}
+	else
+	{
+		tb_affichage[0]='-';
+	}
+	
+	for(int i=0; i <= (nbDigit+4);i++ )
+	{
+	  retval=HAL_UART_Transmit(&huart1,(uint8_t*) tb_affichage,(nbDigit+3),100);
+	}
+	
 }
 void execution (int16_t* pValAcc)
 {
+	
 	int16_t angle=0;
 	LIS3DH_ReadAcc(pValAcc);
 	angle=calculAngle(pValAcc);
 	affichageLCD(&angle);
-	affichageBulle();
-	transmitpc();
+	affichageBulle(&angle);
+	transmitpc(&angle);
 }
 // ----------------------------------------------------------------
 
@@ -201,9 +307,7 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM6_Init();
   MX_USART1_UART_Init();
-
   MX_SPI2_Init();
-
   /* USER CODE BEGIN 2 */
 	LIS3DH_Init();
 	HAL_TIM_Base_Start_IT(&htim6);
@@ -214,7 +318,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	int16_t pValAcc[NBAXES];
 	
-	
+	char tx_Buffer2[2]=  {8};
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -227,7 +332,10 @@ int main(void)
 			//LIS3DH_Read(0x0F,&value);
 			
 		}
-		*/
+		*//*
+		GPIOB->ODR ^= RXDCLK_Pin;
+		HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,2,100);
+		GPIOB->ODR ^= RXDCLK_Pin;*/
 		// *** A COMPLETER ! ***		
 		switch(state)
 		{

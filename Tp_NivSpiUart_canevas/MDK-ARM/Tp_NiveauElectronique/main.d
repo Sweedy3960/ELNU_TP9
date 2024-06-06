@@ -48,3 +48,4 @@ tp_niveauelectronique\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 tp_niveauelectronique\main.o: ../Inc/stm32f0xx_it.h
 tp_niveauelectronique\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 tp_niveauelectronique\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+tp_niveauelectronique\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
