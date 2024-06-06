@@ -62,7 +62,7 @@ typedef enum { MODE_STD, MODE_CAL} MODES;
 /* USER CODE BEGIN PV */
 e_States state = INIT;
 /* USER CODE END PV */
-
+char stateLEDREG = 1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
@@ -145,16 +145,22 @@ bool LectureDuFlag10ms(void)
 		
 		flag10Ms=false; 
 		cntTime++;
+		
 		if(cntTime < _3SEC)
 		{
 		   GPIOC -> ODR &= ~LEDS;
 		}
 		else
 		{
-		   InitialisationHasOccured=true;
-			 GPIOC -> ODR |= LEDS;
-			 cntTime = _3SEC;
-			 state = EXEC;
+			if (cntTime%_250MSEC == 0)
+			{
+				stateLEDREG = !stateLEDREG;
+				cntTime = _3SEC;
+			}
+		  InitialisationHasOccured=true;
+			GPIOC -> ODR |= LEDS;
+			
+			state = EXEC;
 		}
 		return 1;	
 	}
@@ -183,25 +189,84 @@ void affichageligne1(int16_t *angle)
 	printf_lcd("       %3d%1c",*angle,0xDF);
 	
 }
-void Registreadecalage()
+void Registreadecalage(int16_t *angle)
 {
 	
-	char tx_Buffer2[2]=  {255,255};
-
+	
+	/*
+ //eteind tout 
 	GPIOB->ODR &= ~RXDCLK_Pin;
 	HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,1,100);
 	GPIOB->ODR |= RXDCLK_Pin;
+	//allume tout 
 	GPIOB->ODR &= ~RXDCLK_Pin;
-
 	tx_Buffer2[0] = 0;
 	HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,1,100);
 	GPIOB->ODR |= RXDCLK_Pin;
+	*/
+
+	static char tx_Buffer2[2];
+	int16_t index;
+  if (*angle < 0)
+  {
+      index = 9 - abs(*angle); // Pour les angles négatifs, la bulle est plus à gauche
+  }
+  else
+  {
+      index = 9 + *angle; // Pour les angles positifs, la bulle est plus à droite
+  }
+ 
+   // Vérifier les limites
+  if (index < 0)
+  {
+    index = 0;
+  }
+  if (index > 6)
+  {
+    index = 3;
+  }
+  switch (*angle)
+  {
+		case 0:
+			tx_Buffer2[0] =AGLE0|0x80;
+			break;
+		case -1:
+			tx_Buffer2[0] =AGLE_1|0x80;
+			break;
+		case -2:
+			tx_Buffer2[0] =AGLE_2|0x80;
+			break;
+		case -3:
+			tx_Buffer2[0] =AGLE_3|0x80;
+			break;
+		case 1:
+			tx_Buffer2[0] =AGLE1|0x80;
+			break;
+		case 2:
+			tx_Buffer2[0] =AGLE2|0x80;
+			break;
+		case 3:
+			 tx_Buffer2[0] =AGLE3|0x80;
+			break;
+		default: 
+			 tx_Buffer2[0] =0x7F|(stateLEDREG<<7);
+			break;
+	}
+   
+ 
+ 
+    
+    
+	GPIOB->ODR &= ~RXDCLK_Pin;
+	HAL_SPI_Transmit(&hspi2,(uint8_t*)tx_Buffer2,1,100);
+	GPIOB->ODR |= RXDCLK_Pin;
+	
 }
 void affichageLCD(int16_t *angle)
 {
 	lcd_clearScreen();
 	affichageligne1(&(*angle));
-	Registreadecalage();
+	Registreadecalage(&(*angle));
 }
 
 

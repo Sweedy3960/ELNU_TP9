@@ -127,6 +127,14 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 #define NBAXES 3
 #define PI 3.141
 
+#define AGLE3 0x3F
+#define AGLE2 0x5F
+#define AGLE1 0x6F
+#define AGLE0 0x77
+#define AGLE_1 0x7B
+#define AGLE_2 0x7D
+#define AGLE_3 0x7E
+
 
 #define MAXNMAX 0x7FFF
 
@@ -135,7 +143,7 @@ typedef enum {INIT,EXEC,IDLE}e_States;
 //Defines pour timings 
 #define _3SEC 300
 #define _500MSEC 500
-#define _250MSEC 250
+#define _250MSEC 25
 #define _25MSEC 25
 
 
