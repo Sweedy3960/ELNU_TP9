@@ -1,7 +1,7 @@
 # ELNU_TP9
 PENDING....
 
-Solution Du groue VCO ACL pour le TP9 (Niveau electronique):
+Solution Du groupe ACL & VCO pour le TP9 (Niveau electronique):
 'En bref:'
 Utilisation d'un acceleromèter lis3dh via spi 
 Calcul de l'angle
